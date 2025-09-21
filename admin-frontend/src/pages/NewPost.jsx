@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { createPost } from "../api";
 import { Editor } from "@tinymce/tinymce-react";
 import { AuthContext } from "../authContext";
+import { useNavigate } from "react-router-dom";
 export const CreateNew = () => {
   const { token } = useContext(AuthContext);
   const [formData, setformData] = useState({
@@ -18,6 +19,7 @@ export const CreateNew = () => {
     }));
   };
 
+  const navigate = useNavigate("/");
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -27,6 +29,7 @@ export const CreateNew = () => {
       if (data.success) {
         setformData({ title: "", content: "", published: false });
         setLoading(false);
+        navigate("/");
       } else {
         setError(data.error);
       }
