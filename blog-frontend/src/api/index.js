@@ -11,7 +11,7 @@ export const getPosts = async () => {
     }
   } catch (err) {
     console.log(err);
-    return { success: false, error: "Network error, Please try again later."  };
+    return { success: false, error: "Network error, Please try again later." };
   }
 };
 

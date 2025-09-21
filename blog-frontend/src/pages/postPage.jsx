@@ -12,7 +12,7 @@ const PostPage = () => {
       try {
         const data = await getPosts();
         setPosts(data.result.posts);
-        console.log(data.result.posts)
+        console.log(data.result.posts);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -47,8 +47,8 @@ const PostPage = () => {
             className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border-gray-700 p-5 text-gray-500"
             key={post.id}
           >
-            <div className="mb-2 h-48">
-              <div className="h-40">
+            <div className="h-[120px]">
+              <div>
                 <span className="text-sm font-medium text-gray-500">
                   Written By:
                   <span className="text-purple-800 ml-1 font-bold">
@@ -58,19 +58,15 @@ const PostPage = () => {
                 <h2 className="text-2xl font-bold text-gray-900 my-2">
                   {post.title}
                 </h2>
-                <div
-                  dangerouslySetInnerHTML={{ __html: post.content }}
-                  className="h-14 truncate"
-                ></div>
               </div>
+            </div>
+            <div className="flex  justify-between items-center text-sm text-gray-500  border-t border-gray-200 pt-4">
               <Link
                 to={`/posts/${post.id}`}
-                className="text-gray-600 mb-4 hover:underline"
+                className="text-gray-600 hover:underline"
               >
                 See more
               </Link>
-            </div>
-            <div className="flex justify-between items-center text-sm text-gray-500  border-t border-gray-200 pt-4">
               <p className="text-gray-500">
                 {new Date(post.createdAt).toLocaleDateString()}
               </p>

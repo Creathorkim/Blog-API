@@ -32,7 +32,7 @@ router.put("/posts/updatePost/:id", isAuthenticated, isAuthor, updatePost);
 router.get("/posts/comments/:id", getCommentsByPost);
 router.post("/posts/comments/createNew/:id", isAuthenticated, createComment);
 router.delete("/posts/comments/delete/:id", isAuthenticated, deleteComment);
-router.post("/myPosts",isAuthenticated, isAuthor, getAuthorPost);
+router.get("/myPosts", isAuthenticated, isAuthor, getAuthorPost);
 router.post("/authorLogin", authorLogin);
 router.put("/togglePublised", isAuthenticated, isAuthor, togglePublished);
 router.get("/post/:id", isAuthenticated, isAuthor, getSinglePost);

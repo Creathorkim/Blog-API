@@ -47,7 +47,7 @@ export const signUp = async (data) => {
 export const getPosts = async (token) => {
   try {
     const res = await fetch(`${API_URL}/myPosts`, {
-      method: "POST",
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -78,7 +78,7 @@ export const getSinglePost = async (id, token) => {
     });
     const result = await res.json();
     if (res.ok) {
-      return { success: true, result: result.post };
+      return { success: true, result };
     } else {
       return { success: false, error: result.error };
     }
@@ -155,6 +155,21 @@ export const updatePost = async (token, data, id) => {
   } catch (err) {
     console.log(err);
     return { success: false, error: "Network error, Please try again later." };
+  }
+};
+
+export const getComment = async (id) => {
+  try {
+    const res = await fetch(`${API_URL}/posts/comments/${id}`);
+    const result = await res.json();
+    if (res.ok) {
+      return { success: true, result: result };
+    } else {
+      return { success: false, error: result.error };
+    }
+  } catch (err) {
+    console.log(err);
+    return { success: false, error: "Network error, Please try again later" };
   }
 };
 

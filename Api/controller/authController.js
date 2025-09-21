@@ -36,7 +36,7 @@ export const register = async (req, res) => {
     }
   } catch (err) {
     console.log("Error :", err);
-    res.sendStatus(500).json({ error: "Internal Error" });
+    res.status(500).json({ error: "Internal Error" });
   }
 };
 
@@ -60,7 +60,7 @@ export const authorRegister = async (req, res) => {
           role: "Author",
         },
       });
-      res.status(200).json({
+      res.status(201).json({
         user: user,
       });
     }
@@ -253,7 +253,7 @@ export const getPost = async (req, res) => {
 export const deletePost = async (req, res) => {
   try {
     const postId = Number(req.params.id);
-    const author = prisma.user.findUnique({ where: { id: req.user.id } });
+    const author = await prisma.user.findUnique({ where: { id: req.user.id } });
     if (!author) {
       return res.status(403).json({
         error: "You are not authorized to do this pal",
@@ -360,7 +360,7 @@ export const deleteComment = async (req, res) => {
     const author = prisma.user.findUnique({
       where: { id: req.user.id },
     });
-    if (!author && req.user !== "Author") {
+    if (!author && req.user.role !== "Author") {
       return res.status(403).json({
         error: "You can't perform this action",
       });
@@ -385,6 +385,7 @@ export const getAuthorPost = async (req, res) => {
     const id = Number(req.user.id);
     const posts = await prisma.post.findMany({
       where: { authorId: id },
+      include: { comments: true },
       orderBy: { createdAt: "desc" },
     });
 
@@ -392,8 +393,9 @@ export const getAuthorPost = async (req, res) => {
       posts: posts,
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json({
-      error: "You're not Authorized",
+      error: "Internal error",
     });
   }
 };
@@ -445,6 +447,6 @@ export const authDeleteComment = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       error: "Internal Error",
-    }); 
+    });
   }
 };

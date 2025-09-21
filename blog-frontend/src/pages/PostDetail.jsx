@@ -35,7 +35,7 @@ const PostDetail = () => {
   if (loading) {
     return (
       <p className="flex items-center text-center justify-center min-h-screen text-4xl text-black">
-        Loading post....
+        Loading....
       </p>
     );
   }
@@ -59,7 +59,7 @@ const PostDetail = () => {
     const res = await postComment(id, formData, token);
     if (res.success) {
       setformData({ content: "" });
-      navigate("/");
+      navigate(`/posts/${id}`);
     } else {
       setError(res.error);
     }
@@ -120,8 +120,11 @@ const PostDetail = () => {
                 </p>
               ) : (
                 comment.map((c) => (
-                  <div className="border-b border-gray-900 p-5" key={c.id}>
-                    <div className="flex justify-between mb-2">
+                  <div
+                    className="border border-gray-900 border-2 px-5"
+                    key={c.id}
+                  >
+                    <div className="flex justify-between my-4">
                       <span className="font-semibold text-gray-800">
                         {c.user.username}
                       </span>
@@ -132,7 +135,7 @@ const PostDetail = () => {
                     <p className="text-gray-600 text-sm">{c.content}</p>
                     {c.userId === user.id && (
                       <div
-                        className="text-end mt-4"
+                        className="text-end my-4"
                         onClick={() => deleteComments(c.id)}
                       >
                         <button>🗑</button>
@@ -145,7 +148,7 @@ const PostDetail = () => {
             <div className="mt-6">
               <textarea
                 name="content"
-                className="w-full p-3 rounded-lg focus:outline-none text-sm"
+                className="w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-black  text-sm"
                 rows={4}
                 value={formData.content}
                 onChange={(e) =>

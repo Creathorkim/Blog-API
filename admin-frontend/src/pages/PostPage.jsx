@@ -6,18 +6,18 @@ import {
   deletePost,
   deleteComment,
   togglePublished,
+  getComment,
 } from "../api";
 import { useContext } from "react";
 import { AuthContext } from "../authContext";
 
 export const PostPage = () => {
   const [post, setPost] = useState([]);
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState({});
   const [published, setPublished] = useState(post.published);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(null);
   const [showDeletePostModal, setShowDeletePostModal] = useState(false);
-  const [showDeleteCommentModal, setDeleteCommenModal] = useState(false);
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -27,8 +27,10 @@ export const PostPage = () => {
     const fetchPost = async () => {
       try {
         const data = await getSinglePost(id, token);
-        setPost(data.result);
-        setComments(data.result.comments);
+        setPost(data.result.post);
+        const comment = await getComment(id);
+        console.log(comment);
+        setComments(comment.result.comments);
       } catch {
         setError("Network Error. Please try again");
       } finally {
@@ -48,14 +50,21 @@ export const PostPage = () => {
     }
   };
 
-  const handleDeleteComment = async () => {
-    const res = await deleteComment(comments.id, token);
-    if (res.success === true) {
-      alert("Comment Deleted");
+  const handleDeleteComment = async (commentdel) => {
+    const yes = alert("Are you sure you wanna delete this comment??");
+    if (yes) {
+      await deleteComment(commentdel, token);
+      alert("Post Deleted");
       navigate("/");
     } else {
-      setError(res.error);
+      return;
     }
+    // if (res.success === true) {
+    //   const yes = alert("Are you sure you wanna delete this comment??");
+
+    // } else {
+    //   setError(res.error);
+    // }
   };
 
   const handleTogglePublished = async () => {
@@ -71,16 +80,20 @@ export const PostPage = () => {
     }
   };
 
-  if(loading){
-    return(
-      <p className="flex items-center text-center justify-center min-h-screen text-4xl text-white">Loading....</p>
-    )
+  if (loading) {
+    return (
+      <p className="flex items-center text-center justify-center min-h-screen text-4xl text-white">
+        Loading....
+      </p>
+    );
   }
 
-  if(error){
-    return(
-      <p className="flex items-center text-center justify-center min-h-screen text-4xl text-red-500">{error}</p>
-    )
+  if (error) {
+    return (
+      <p className="flex items-center text-center justify-center min-h-screen text-4xl text-red-500">
+        {error}
+      </p>
+    );
   }
 
   return (
@@ -132,7 +145,7 @@ export const PostPage = () => {
 
         <div className="bg-neutral-900 p-10 md:p-6 rounded-3xl shadow-2xl w-full max-w-8xl">
           <h2 className="text-2xl font-bold text-white mb-6">
-            Comments ({post.length || 0})
+            Comments ({comments.length || 0})
           </h2>
           <div className="space-y-4">
             {comments.length > 0 ? (
@@ -143,7 +156,7 @@ export const PostPage = () => {
                 >
                   <div>
                     <span className="font-semibold text-neutral-200">
-                      {comment.author.username}
+                      {comment.user.email}
                     </span>
                     <p className="text-sm text-neutral-400 mt-1">
                       {comment.content}
@@ -154,7 +167,7 @@ export const PostPage = () => {
                   </div>
                   <button
                     className="ml-4 p-2 text-neutral-400 hover:text-red-500 transition-colors duration-200 rounded-lg"
-                    onClick={handleDeleteComment}
+                    onClick={() => handleDeleteComment(comment.id, token)}
                   >
                     <Trash2 className="w-5 h-5" />
                   </button>
@@ -185,32 +198,6 @@ export const PostPage = () => {
                 </button>
                 <button
                   onClick={handleDeletePost}
-                  className="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transitions-colors"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {showDeleteCommentModal && (
-          <div className="fixed inset-0 bg-neutral-950 bg-opacity-75 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-            <div className="bg-neutral-800 p-8 rounded-xl shadow-2xl w-full max-w-sm ">
-              <h3 className="text-xl font-bold mb-4">Confirm Deletion</h3>
-              <p className="text-neutral-400 mb-6">
-                Are you sure you want to delete this comment? This action cannot
-                be undone.
-              </p>
-              <div className="flex justify-end gap-3">
-                <button
-                  onClick={() => setDeleteCommenModal(false)}
-                  className="px-4 py-2 bg-neutral-700 text-neutral-200 font-semibold rounded-lg hover:bg-neutral-600 transitions-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={() => setShowDeletePostModal(false)}
                   className="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transitions-colors"
                 >
                   Delete
