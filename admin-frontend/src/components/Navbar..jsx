@@ -19,7 +19,7 @@ export const Navbar = () => {
           {token ? (
             <>
               <li>
-                <Link to="/">Posts</Link>
+                <Link to="/">Home</Link>
               </li>
               <li>
                 <Link to="/CreateNew">Create New</Link>
