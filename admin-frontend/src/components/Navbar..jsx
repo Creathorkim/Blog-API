@@ -28,8 +28,12 @@ export const Navbar = () => {
             </>
           ) : (
             <>
-              <Link to="/auth">Sign In</Link>
-              <Link to="/auth/login">Login</Link>
+              <li>
+                <Link to="/auth">Sign In</Link>
+              </li>
+              <li>
+                <Link to="/auth/login">Login</Link>
+              </li>
             </>
           )}
         </ul>
@@ -49,14 +53,22 @@ export const Navbar = () => {
         <ul className="flex flex-col gap-3 font-bold md:hidden text-center">
           {token ? (
             <>
-              <li>Posts</li>
-              <li>Create new Post</li>
+              <li>
+                <Link to="/">Posts</Link>
+              </li>
+              <li>
+                <Link to="/CreateNew">Create new Post</Link>
+              </li>
               <button onClick={handleLogOut}>Log-Out</button>
             </>
           ) : (
             <>
-              <li>Sign Up</li>
-              <li>Log-In</li>
+              <li>
+                <Link to="/auth">Sign Up</Link>
+              </li>
+              <li>
+                <Link to="/auth/login">Log-In</Link>
+              </li>
             </>
           )}
         </ul>
