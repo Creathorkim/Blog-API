@@ -1,7 +1,7 @@
 import express from "express";
+import cors from "cors";
 import dotenv from "dotenv";
 import authRouter from "./routes/route.js";
-import cors from "cors";
 dotenv.config();
 
 const app = express();
@@ -18,8 +18,9 @@ app.use(
   })
 );
 
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(express.urlencoded({ extended: true }));
 app.use("/", authRouter);
 
 const PORT = process.env.PORT || 5000;
