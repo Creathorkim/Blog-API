@@ -1,4 +1,4 @@
-const API_URL = "https://blog-api-kxsq.onrender.com";
+const API_URL = "https://blog-api-1-r4vc.onrender.com";
 
 export const login = async (data) => {
   try {
