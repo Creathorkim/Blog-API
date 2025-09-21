@@ -51,7 +51,7 @@ export const Home = () => {
       <div className="w-full max-w-7xl flex flex-col gap-6 mt-4">
         <div className="bg-neutral-800 p-8 rounded-2xl shadow-xl flex flex-col md:flex-row justify-between items-center">
           <div className="flex flex-col">
-            <h1 className="text-4xl md:text-3xl font-extrabold">
+            <h1 className="text-3xl font-extrabold flex flex-grow">
               Welcome back,{user.username}👋
             </h1>
             <p className="text-neutral-400 mt-4 md:mt-1 text-center md:text-left">
