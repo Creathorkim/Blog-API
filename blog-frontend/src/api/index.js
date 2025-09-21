@@ -1,11 +1,11 @@
-const API_URL = "http://localhost:5000";
+const API_URL = "https://blog-api-m8jn.onrender.com/";
 
 export const getPosts = async () => {
   try {
     const res = await fetch(`${API_URL}/posts`);
     const result = await res.json();
     if (res.ok) {
-      return { success: true, result:result };
+      return { success: true, result: result };
     } else {
       return { success: false, error: result.error };
     }
@@ -75,7 +75,7 @@ export const getComment = async (id) => {
     const res = await fetch(`${API_URL}/posts/comments/${id}`);
     const result = await res.json();
     if (res.ok) {
-      return { success: true, result:result };
+      return { success: true, result: result };
     } else {
       return { success: false, error: result.error };
     }
