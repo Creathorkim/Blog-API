@@ -1,4 +1,4 @@
-const API_URL = "https://blog-api-m8jn.onrender.com";
+const API_URL = "https://blog-api-kxsq.onrender.com";
 
 export const getPosts = async () => {
   try {
