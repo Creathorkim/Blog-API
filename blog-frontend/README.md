@@ -7,7 +7,7 @@ This is where readers can explore published posts, view details, and interact wi
 - View a list of published blog posts
 - Read individual post details
 - Responsive design (mobile-friendly with Tailwind CSS)
-- Integrated with the [Blog API](https://blog-api-m8jn.onrender.com)
+- Integrated with the [Blog API](https://blog-api-kxsq.onrender.com)
 
 ## Tech Stack
 - **React** (Frontend framework)

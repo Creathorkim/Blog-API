@@ -1,6 +1,6 @@
-import image from "../assets/blog.jpg";
-import imageTwo from "../assets/image.jpeg";
-import imageThree from "../assets/images.webp";
+import image from "../assets/blogging-083016.webp";
+import imageTwo from "../assets/blog-post.jpeg";
+import imageThree from "../assets/blog.jpg";
 import { useContext } from "react";
 import { AuthContext } from "../AuthContext";
 import { Link } from "react-router-dom";
