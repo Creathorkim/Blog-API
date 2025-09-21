@@ -28,8 +28,8 @@ export const CreateNew = () => {
       const data = await createPost(formData, token);
       if (data.success) {
         setformData({ title: "", content: "", published: false });
-        setLoading(false);
         navigate("/");
+        setLoading(false);
       } else {
         setError(data.error);
       }

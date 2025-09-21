@@ -82,7 +82,7 @@ export const Home = () => {
             {posts?.length > 0 ? (
               posts.map((post) => (
                 <Link key={post.id} to={`postDetail/${post.id}`}>
-                  <div className="flex items-center justify-between p-4 bg-neutral-900 rounded-lg border border-neutral-700 hover:bg-neutral-700 transition-colors duration-200">
+                  <div className="flex items-center justify-between p-4 bg-neutral-900 rounded-lg border border-neutral-700 hover:bg-neutral-700 transition-colors duration-200 mb-2">
                     <div>
                       <h3 className="font-semibold">{post.title}</h3>
                       {post.published === true ? (
