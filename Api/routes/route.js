@@ -17,6 +17,7 @@ import {
   authorRegister,
   getSinglePost,
   authDeleteComment,
+  authorLogin,
 } from "../controller/authController.js";
 const router = Router();
 
@@ -32,7 +33,7 @@ router.get("/posts/comments/:id", getCommentsByPost);
 router.post("/posts/comments/createNew/:id", isAuthenticated, createComment);
 router.delete("/posts/comments/delete/:id", isAuthenticated, deleteComment);
 router.post("/myPosts",isAuthenticated, isAuthor, getAuthorPost);
-router.post("/authorLogin", login);
+router.post("/authorLogin", authorLogin);
 router.put("/togglePublised", isAuthenticated, isAuthor, togglePublished);
 router.get("/post/:id", isAuthenticated, isAuthor, getSinglePost);
 router.delete(
