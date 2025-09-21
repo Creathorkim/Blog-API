@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000";
+const API_URL = "https://blog-api-kxsq.onrender.com";
 
 export const login = async (data) => {
   try {
